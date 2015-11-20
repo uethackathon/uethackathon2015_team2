@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,7 +16,8 @@
             android:id="@+id/imgAvatar"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:src="@mipmap/avatar_test" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -23,7 +26,10 @@
             android:text="Medium Text"
             android:id="@+id/txtTitle"
             android:layout_marginTop="10dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -39,18 +45,24 @@
         android:layout_height="wrap_content"
         android:text="Hom nay lam duoc bai suong qua cac ban oi"
         android:id="@+id/tv_content"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000000"
+        android:textSize="15dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="22dp">
+        android:layout_height="22dp"
+        android:layout_marginTop="4dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="113 Cám ơn"
-            android:id="@+id/txtCountLike" />
+            android:id="@+id/txtCountLike"
+            android:layout_marginLeft="15dp"
+            android:textColor="#989696" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,8 +70,15 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="200 bình luận"
             android:id="@+id/txtCountComment"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:textColor="#989696" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#f0f0f0"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -71,22 +90,32 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Cám ơn"
+            android:text="cám ơn"
             android:id="@+id/button"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:textColor="#c0bdbd"
+                android:textSize="13dp" />
 
         <Button
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Bình luận"
+            android:text="bình luận"
             android:id="@+id/button2"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:textColor="#c0bdbd"
+            android:textSize="13dp" />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#f0f0f0"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        android:background="#f3f3f3">
 
         <ImageView
             android:layout_width="50dp"
@@ -94,7 +123,8 @@
             android:id="@+id/imgAvatarLastPost"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/avatar_test" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,20 +134,30 @@
             android:id="@+id/txtNameLastComment"
             android:layout_toRightOf="@+id/imgAvatarLastPost"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="7dp" />
+            android:layout_marginTop="7dp"
+            android:textColor="#000000"
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/textView2"
+            android:id="@+id/txtContentLastComment"
             android:layout_below="@id/txtNameLastComment"
             android:layout_toRightOf="@+id/imgAvatarLastPost"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp" />
+            android:layout_marginTop="3dp"
+            android:textColor="#000000"
+            android:textSize="14dp" />
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#e1e1e1"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_weight="0.04" />
 
 
 

@@ -1,60 +1,76 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.support.v7.widget.RecyclerView;
 
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.holder.AbstactHolder;
+import com.hackathon.fries.myclass.holder.ItemPostHolder;
+import com.hackathon.fries.myclass.holder.ItemWritePostHolder;
+import com.hackathon.fries.myclass.models.ItemTimeLine;
 
 import java.util.ArrayList;
 
 /**
  * Created by TooNies1810 on 11/20/15.
  */
-public class TimeLineAdapter extends BaseAdapter {
+public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
     private Context mContext;
-    private LayoutInflater lf;
-    private ArrayList<ItemTimeLine> itemArr;
+    private ArrayList<ItemTimeLine> itemArr = new ArrayList<ItemTimeLine>();
 
-    public TimeLineAdapter(Context mContext) {
-        this.mContext = mContext;
-        lf = LayoutInflater.from(mContext);
-
-        itemArr = new ArrayList<>();
-        initData();
+    public TimeLineAdapter(ArrayList<ItemTimeLine> posts, Context ctx){
+        this.itemArr = posts;
+        this.mContext = ctx;
+        itemArr = posts;
     }
 
-    private void initData() {
-        itemArr = new ArrayList<>();
-
+    public void updateList(ArrayList<ItemTimeLine> posts) {
+        this.itemArr = posts;
+        notifyDataSetChanged();
     }
 
     @Override
-    public int getCount() {
-        return itemArr.size();
+    public AbstactHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //if(viewType == 1){
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_post, parent, false);
+            ItemPostHolder itemPostHolder = new ItemPostHolder(view);
+            return itemPostHolder;
+//        } else {
+//            View view = LayoutInflater.from(mContext).inflate(R.layout.writepost_layout, parent, false);
+//            ItemWritePostHolder itemWritePostHolder = new ItemWritePostHolder(view);
+//            return itemWritePostHolder;
+//        }
     }
 
     @Override
-    public ItemTimeLine getItem(int position) {
-        return itemArr.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = lf.inflate(R.layout.item_post, null);
+    public void onBindViewHolder(AbstactHolder abstactHolder, int position) {
+        if(true){
+            final ItemTimeLine itemTimeLine = itemArr.get(position);
+            //itemPostHolder.getImgAvatar();
+            ItemPostHolder itemPostHolder = (ItemPostHolder) abstactHolder;
+            itemPostHolder.getTxtTitle().setText(itemTimeLine.getName());
+            itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());
+            itemPostHolder.getTxtCountLike().setText(String.valueOf(itemTimeLine.getLike()) + " cám ơn");//
+            itemPostHolder.getTxtCountComment().setText(String.valueOf(itemTimeLine.getItemComments().size()) + " bình luận");//
+            //itemPostHolder.getImgAvatarLastPost();
+            itemPostHolder.getTxtNameLastPost().setText(
+                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
+            itemPostHolder.getTxtCommentLastPost().setText(
+                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
+        } else {
+                ItemWritePostHolder itemWritePostHolder = (ItemWritePostHolder) abstactHolder;
         }
-        TextView tvContent = (TextView) convertView.findViewById(R.id.tv_content);
-        tvContent.setText(itemArr.get(position).getContent());
 
-        return convertView;
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemArr==null?0:itemArr.size();
     }
 }

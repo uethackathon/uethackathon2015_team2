@@ -1,4 +1,4 @@
-package com.hackathon.fries.myclass.adapter;
+package com.hackathon.fries.myclass.models;
 
 import java.util.ArrayList;
 
