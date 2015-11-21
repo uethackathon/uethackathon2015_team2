@@ -1,13 +1,10 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
 import com.hackathon.fries.myclass.R;
@@ -74,8 +71,6 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
             itemPostHolder.getTxtCommentLastPost().setText(
                     itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
         } else {
-            Log.i("Write","abcd");
-               // ItemWritePostHolder itemWritePostHolder = (ItemWritePostHolder) abstactHolder;
         }
 
     }

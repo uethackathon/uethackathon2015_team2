@@ -1,11 +1,15 @@
 package com.hackathon.fries.myclass.holder;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.appmanager.AppManager;
+import com.hackathon.fries.myclass.dialog.ViewDialog;
 
 import org.w3c.dom.Text;
 
@@ -20,9 +24,45 @@ public class ItemPostHolder extends AbstactHolder {
         txtContent = (TextView) itemView.findViewById(R.id.tv_content);
         imgAvatarLastPost = (ImageView) itemView.findViewById(R.id.imgAvatarLastPost);
         txtNameLastPost = (TextView) itemView.findViewById(R.id.txtNameLastComment);
+
         txtCommentLastPost = (TextView) itemView.findViewById(R.id.txtContentLastComment);
+
         txtCountLike = (TextView) itemView.findViewById(R.id.txtCountLike);
         txtCountComment = (TextView) itemView.findViewById(R.id.txtCountComment);
+        btnTks = (Button) itemView.findViewById(R.id.btnTks);
+        btnComment = (Button) itemView.findViewById(R.id.btnComment);
+        createListener();
+
+    }
+
+    private void createListener(){
+        btnTks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog viewDialog = new ViewDialog();
+                viewDialog.showDialog((Activity) AppManager.getInstance().getMainContext(),"abcd");
+            }
+        });
+        txtCommentLastPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog viewDialog = new ViewDialog();
+                viewDialog.showDialog((Activity) AppManager.getInstance().getMainContext(),"abcd");
+            }
+        });
+        txtNameLastPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog viewDialog = new ViewDialog();
+                viewDialog.showDialog((Activity) AppManager.getInstance().getMainContext(),"abcd");
+            }
+        });
     }
     private ImageView imgAvatar;
     private TextView txtTitle;
@@ -32,6 +72,8 @@ public class ItemPostHolder extends AbstactHolder {
     private TextView txtCommentLastPost;
     private TextView txtCountLike;
     private TextView txtCountComment;
+    private Button btnTks;
+    private Button btnComment;
     @Override
     public int getViewHolderType() {
         int viewHolderType = 1;
@@ -100,5 +142,21 @@ public class ItemPostHolder extends AbstactHolder {
 
     public void setTxtCountComment(TextView txtCountComment) {
         this.txtCountComment = txtCountComment;
+    }
+
+    public Button getBtnTks() {
+        return btnTks;
+    }
+
+    public void setBtnTks(Button btnTks) {
+        this.btnTks = btnTks;
+    }
+
+    public Button getBtnComment() {
+        return btnComment;
+    }
+
+    public void setBtnComment(Button btnComment) {
+        this.btnComment = btnComment;
     }
 }

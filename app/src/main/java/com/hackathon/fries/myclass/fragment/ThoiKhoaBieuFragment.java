@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hackathon.fries.myclass.R;
 import com.hackathon.fries.myclass.adapter.TableSubjectAdapter;
@@ -44,13 +45,16 @@ public class ThoiKhoaBieuFragment extends Fragment implements AdapterView.OnItem
         gridSubject.setAdapter(adapter);
         gridSubject.setOnItemClickListener(this);
 
-        dialogInfo = new Dialog(mContext);
+        dialogInfo = new Dialog(mContext, R.style.DialogNoActionBar);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ItemLopMonHoc item = adapter.getItem(position);
-        if (item==null) return;
+        if (item==null) {
+            Toast.makeText(mContext, "Trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
         showDialogInfo(item);
     }
 
@@ -63,6 +67,7 @@ public class ThoiKhoaBieuFragment extends Fragment implements AdapterView.OnItem
         TextView ten    = (TextView)    dialogInfo.findViewById(R.id.dialogTenMH);
         TextView maLMH  = (TextView)    dialogInfo.findViewById(R.id.dialogMaMH);
         TextView gv     = (TextView)    dialogInfo.findViewById(R.id.dialogGiangVien);
+        TextView tgian  = (TextView)    dialogInfo.findViewById(R.id.dialogThoiGian);
         TextView diaDiem= (TextView)    dialogInfo.findViewById(R.id.dialogDiaDiem);
 
         // Set for Views
@@ -70,6 +75,15 @@ public class ThoiKhoaBieuFragment extends Fragment implements AdapterView.OnItem
         maLMH.setText(item.getMaLMH());
         gv.setText(item.getGiangVien());
         diaDiem.setText(item.getDiaDiem());
+
+        // Convert time:
+        int vtri = item.getViTri();
+        int soTiet = item.getSoTiet();
+
+        int x = (vtri-1)/10;
+        int y = vtri - 10*x;
+
+        tgian.setText("Thứ " + (x+2) + "\t\tTiết " + y + " - " + (y+soTiet-1));
 
         dialogInfo.show();
     }

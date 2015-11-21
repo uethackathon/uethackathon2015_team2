@@ -104,10 +104,10 @@ public class TableSubjectAdapter extends BaseAdapter{
             view = lf.inflate(R.layout.item_subject_in_table, null);
         }
 
+        if (listSubjectInTable[position] == -1) return view;
+
         Animation myAni = AnimationUtils.loadAnimation(mContext, R.anim.anim_show_item_subject);
         view.startAnimation(myAni);
-
-        if (listSubjectInTable[position] == -1) return view;
 
         ItemLopMonHoc item = listSubject.get(listSubjectInTable[position]);
 

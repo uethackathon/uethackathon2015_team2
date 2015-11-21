@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.hackathon.fries.myclass.MainActivity;
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.appmanager.AppManager;
 import com.hackathon.fries.myclass.models.ItemLop;
 import com.hackathon.fries.myclass.adapter.LopAdapter;
 
@@ -38,7 +39,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.lopmonhoc, null);
         mContext = getActivity();
-
+        AppManager.getInstance().setMainContext(mContext);
         initViews();
 
         switch (currentAdapter) {

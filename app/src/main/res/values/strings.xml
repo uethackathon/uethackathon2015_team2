@@ -6,6 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_sendAll">Gửi thông báo</string>
+    <string name="action_post">Đăng</string>
 
 
     <string name="hint_email">Email</string>
@@ -38,5 +39,7 @@
 
 
     <string name="thoi_khoa_bieu">Thời khóa biểu</string>
+    <string name="title_activity_write_post">WritePostActivity</string>
+    <string name="title_activity_post_writer">PostWriterActivity</string>
 
 </resources>

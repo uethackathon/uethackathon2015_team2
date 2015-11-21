@@ -9,4 +9,5 @@
 
     <dimen name="description">12dp</dimen>
     <dimen name="height_item_subject">50dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

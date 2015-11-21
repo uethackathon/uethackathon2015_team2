@@ -91,7 +91,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="cám ơn"
-            android:id="@+id/button"
+            android:id="@+id/btnTks"
             android:background="#ffffff"
             android:textColor="#c0bdbd"
                 android:textSize="13dp" />
@@ -101,7 +101,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="bình luận"
-            android:id="@+id/button2"
+            android:id="@+id/btnComment"
             android:background="#ffffff"
             android:textColor="#c0bdbd"
             android:textSize="13dp" />
