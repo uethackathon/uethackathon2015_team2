@@ -110,7 +110,7 @@ public class LopAdapter extends BaseAdapter {
         tvGiangVien.setText(itemArr.get(position).giangVien);
 
         tvVietTat.setText(itemArr.get(position).vietTat);
-//        tvSoNguoi.setText(itemArr.get(position).soNguoi);
+        tvSoNguoi.setText("Số người: " + itemArr.get(position).soNguoi);
 
         return convertView;
     }

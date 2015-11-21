@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,16 +45,16 @@ import static com.android.volley.Request.*;
 /**
  * Created by TooNies1810 on 11/20/15.
  */
-public class TimelineFragment extends Fragment {
+public class TimelineFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "TimelineFragment";
     private View root;
     private Context mainContext;
     private ListView lvTimeline;
     private TimeLineAdapter mAdapter;
     private ArrayList<ItemTimeLine> itemPostArr;
-    //    private ArrayList<ItemComment> itemCommentArr;
-    private ProgressDialog pLog;
+    //    private ProgressDialog pLog;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout swipeRefresh;
 
     private String idLop;
     private int lopType;
@@ -65,8 +66,14 @@ public class TimelineFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_timeline, null);
         mainContext = getActivity();
 
-        pLog = new ProgressDialog(mainContext);
-        pLog.setCancelable(false);
+        //dialog
+//        pLog = new ProgressDialog(mainContext);
+//        pLog.setCancelable(false);
+
+        //swipe
+        swipeRefresh = (SwipeRefreshLayout) root.findViewById(R.id.swipe_timeline);
+        swipeRefresh.setOnRefreshListener(this);
+
         initData();
         initViews();
 
@@ -75,16 +82,37 @@ public class TimelineFragment extends Fragment {
 
     private void initViews() {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mainContext));
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainContext);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
 //        Log.i(TAG, "initview name: " + itemPostArr.get(0).getName());
 //        Log.i(TAG, "initview content: " + itemPostArr.get(0).getContent());
 //        Log.i(TAG, "initview like: " + itemPostArr.get(0).getLike());
 //        Log.i(TAG, "initview title: " + itemPostArr.get(0).getTitle());
 
-//        mAdapter = new TimeLineAdapter(itemPostArr, mainContext);
-//
-//        mRecyclerView.setAdapter(mAdapter);
+        mAdapter = new TimeLineAdapter(itemPostArr, mainContext);
+
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                // TODO Auto-generated method stub
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                // TODO Auto-generated method stub
+                //super.onScrollStateChanged(recyclerView, newState);
+                int firstPos = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                if (firstPos > 0) {
+                    swipeRefresh.setEnabled(false);
+                } else {
+                    swipeRefresh.setEnabled(true);
+                }
+            }
+        });
 
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,7 +127,6 @@ public class TimelineFragment extends Fragment {
                 return true;
             }
         });
-
     }
 
     public void initData() {
@@ -120,7 +147,7 @@ public class TimelineFragment extends Fragment {
                 break;
         }
         itemPostArr = new ArrayList<>();
-        requestPost(idLop, keyLopType, itemPostArr);
+//        requestPost(idLop, keyLopType, itemPostArr);
         setDemoData();
 //        new RequestPSot().execute();
 
@@ -163,12 +190,14 @@ public class TimelineFragment extends Fragment {
 //        itemCommentArr = new ArrayList<>();
 
         //Hien thi 1 dialog cho request
-        showDialog();
+//        showDialog();
+        swipeRefresh.setRefreshing(true);
 
         StringRequest request = new StringRequest(Method.POST, AppConfig.URL_GET_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                hideDialog();
+//                hideDialog();
+                swipeRefresh.setRefreshing(false);
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -260,7 +289,8 @@ public class TimelineFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                hideDialog();
+//                hideDialog();
+                swipeRefresh.setRefreshing(false);
                 Toast.makeText(mainContext, "Không load được thông tin bài đăng", Toast.LENGTH_LONG).show();
             }
         }) {
@@ -284,130 +314,23 @@ public class TimelineFragment extends Fragment {
         }
     };
 
-    private class RequestPost extends AsyncTask<Void, Void, Void> {
-        private ArrayList<ItemTimeLine> itemPostArr = new ArrayList<>();
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            //Hien thi 1 dialog cho request
-//            showDialog();
-
-            StringRequest request = new StringRequest(Method.POST, AppConfig.URL_GET_POST, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-//                    hideDialog();
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean error = jsonObject.getBoolean("error");
-                        if (!error) {
-//                        String id = jsonObject.getString("idclass");
-                            //lay jsonItem nhet vao item
-                            JSONArray jsonPostArr = jsonObject.getJSONArray("posts");
-
-                            for (int i = 0; i < jsonPostArr.length(); i++) {
-                                //Lay mang cac post
-                                //Luu vao 1 arrayList post
-                                String id = jsonPostArr.getJSONObject(i).getString("id");
-                                String titlePost = jsonPostArr.getJSONObject(i).getString("title");
-                                String contentPost = jsonPostArr.getJSONObject(i).getString("content");
-                                String groupType = jsonPostArr.getJSONObject(i).getString("group");
-                                int like = jsonPostArr.getJSONObject(i).getInt("like");
-//                            boolean isConfirm = jsonPostArr.getJSONObject(i).getBoolean("confirm");
-                                boolean isIncognito = jsonPostArr.getJSONObject(i).getBoolean("isIncognito");
-                                String basePost = jsonPostArr.getJSONObject(i).getString("base");
-
-                                //author post
-                                JSONObject jsonAuthorPost = jsonPostArr.getJSONObject(i).getJSONObject("author");
-                                String nameAuthorPost = jsonAuthorPost.getString("name");
-                                String idAuthorPost = jsonAuthorPost.getString("id");
-                                String emailAuthorPost = jsonAuthorPost.getString("email");
-                                String typeAuthorPost = jsonAuthorPost.getString("type");
-                                String mssvAuthorPost = jsonAuthorPost.getString("mssv");
-
-                                Log.i(TAG, "post: " + nameAuthorPost);
-                                Log.i(TAG, "post: " + emailAuthorPost);
-                                Log.i(TAG, "post: " + typeAuthorPost);
-
-                                boolean isConfirm = false;
-
-                                itemPostArr.add(new ItemTimeLine(titlePost, nameAuthorPost, "", contentPost, like, isConfirm));
-
-                                //Lay mang cac comment
-                                //Luu vao 1 arraylist comment
-                                JSONArray jsonCommentArr = jsonPostArr.getJSONObject(i).getJSONArray("comments");
-
-                                ArrayList<ItemComment> itemCommentArr = null;
-                                for (int j = 0; j < jsonCommentArr.length(); j++) {
-                                    itemCommentArr = new ArrayList<>();
-
-                                    String idComment = jsonCommentArr.getJSONObject(j).getString("id");
-                                    String contentComment = jsonCommentArr.getJSONObject(j).getString("content");
-
-                                    JSONObject jsonAuthorComment = jsonCommentArr.getJSONObject(j).getJSONObject("author");
-                                    String idAuthorComment = jsonAuthorComment.getString("id");
-                                    String nameAuthorComment = jsonAuthorComment.getString("name");
-                                    String emailAuthorComment = jsonAuthorComment.getString("email");
-                                    String typeAuthorComment = jsonAuthorComment.getString("type");
-                                    String mssvAuthorComment = jsonAuthorComment.getString("mssv");
-
-                                    Log.i(TAG, "comment: " + nameAuthorComment);
-                                    Log.i(TAG, "comment: " + emailAuthorComment);
-                                    Log.i(TAG, "comment: " + typeAuthorComment);
-
-                                    boolean isVote = jsonCommentArr.getJSONObject(j).getBoolean("confirmed");
-
-                                    itemCommentArr.add(new ItemComment(nameAuthorComment, "", contentComment, isVote));
-
-                                }
-                                itemPostArr.get(i).setItemComments(itemCommentArr);
-
-                            }
-
-//                            Toast.makeText(mainContext, "Lay thong tin bai post thanh cong", Toast.LENGTH_LONG).show();
-//                        initViews();
-//                        isDataLoaded = true;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-//                    hideDialog();
-                    Toast.makeText(mainContext, "Không load được thông tin bài đăng", Toast.LENGTH_LONG).show();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> lop = new HashMap<>();
-                    lop.put("id", idLop);
-                    lop.put("base", keyLopType);
-                    return lop;
-                }
-            };
-            AppController.getInstance().addToRequestQueue(request, "timeline_item");
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            initViews();
-        }
+    @Override
+    public void onRefresh() {
+        initData();
+        initViews();
     }
 
-    private void showDialog() {
-        if (!pLog.isShowing()) {
-            pLog.show();
-        }
-    }
-
-    private void hideDialog() {
-        if (pLog.isShowing()) {
-            pLog.hide();
-        }
-    }
+//    private void showDialog() {
+//        if (!pLog.isShowing()) {
+//            pLog.show();
+//        }
+//    }
+//
+//    private void hideDialog() {
+//        if (pLog.isShowing()) {
+//            pLog.hide();
+//        }
+//    }
 
     public void setIdLop(String idLop, int lopType) {
         this.idLop = idLop;

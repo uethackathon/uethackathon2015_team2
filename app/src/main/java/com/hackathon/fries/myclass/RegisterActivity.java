@@ -29,7 +29,6 @@ public class RegisterActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
     private Button btnLinkToLogin;
-//    private EditText inputFullName;
     private EditText inputEmail;
     private EditText inputMssv;
     private EditText inputPassword;
@@ -44,7 +43,6 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-//        inputFullName = (EditText) findViewById(R.id.name);
         inputMssv = (EditText) findViewById(R.id.edt_mssv);
         inputEmail = (EditText) findViewById(R.id.email);
         inputLop = (EditText) findViewById(R.id.edt_lop);
@@ -75,7 +73,6 @@ public class RegisterActivity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-//                String name = inputFullName.getText().toString().trim();
                 String mssv = inputMssv.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();

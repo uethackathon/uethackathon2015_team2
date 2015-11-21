@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ import java.util.Map;
 /**
  * Created by TooNies1810 on 11/20/15.
  */
-public class LopFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class LopFragment extends Fragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "LopFragment";
     private View root;
@@ -45,7 +46,9 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     private LopAdapter lopMonHocAdt, lopKhoaHocAdt, nhomAdt;
     private Context mContext;
     private int currentAdapter = 0;
-    private ProgressDialog pDialog;
+//    private ProgressDialog pDialog;
+
+    private SwipeRefreshLayout swipeRefresh;
 
     public static final int LOP_MON_HOC = 1;
     public static final int LOP_KHOA_HOC = 2;
@@ -57,6 +60,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 
     private SQLiteHandler db;
     private String uid;
+    private String currentDBKey;
 
     @Nullable
     @Override
@@ -66,13 +70,17 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
         AppManager.getInstance().setMainContext(mContext);
 
         //dialog
-        pDialog = new ProgressDialog(mContext);
-        pDialog.setCancelable(false);
+//        pDialog = new ProgressDialog(mContext);
+//        pDialog.setCancelable(false);
 
         //get user information
         db = new SQLiteHandler(mContext);
         HashMap<String, String> user = db.getUserDetails();
         uid = user.get("uid");
+
+        //Swipe refresh
+        swipeRefresh = (SwipeRefreshLayout) root.findViewById(R.id.swipe);
+        swipeRefresh.setOnRefreshListener(this);
 
         initViews();
 
@@ -147,22 +155,26 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     public void showLopMonHoc() {
         lvMain.setAdapter(lopMonHocAdt);
         currentAdapter = LOP_MON_HOC;
+        currentDBKey = KEY_LOP_MON_HOC;
     }
 
     public void showLopKhoaHoc() {
         lvMain.setAdapter(lopKhoaHocAdt);
         currentAdapter = LOP_KHOA_HOC;
+        currentDBKey = KEY_LOP_KHOA_HOC;
     }
 
     public void showNhomAdt() {
         lvMain.setAdapter(nhomAdt);
         currentAdapter = NHOM;
+        currentDBKey = KEY_NHOM;
     }
 
 
     private void requestLopHoc(final String uid, final String databaseKey, final ArrayList<ItemLop> itemArr) {
-        pDialog.setMessage("Lấy thông tin lớp học ...");
-        showDialog();
+//        pDialog.setMessage("Lấy thông tin lớp học ...");
+//        showDialog();
+        swipeRefresh.setRefreshing(true);
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_GET_LOPKHOAHOC, new Response.Listener<String>() {
@@ -170,8 +182,8 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Get lop hoc Response: " + response.toString());
-                hideDialog();
-
+//                hideDialog();
+                swipeRefresh.setRefreshing(false);
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
@@ -203,7 +215,6 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -212,7 +223,8 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
                 Log.e(TAG, "Get class Error: " + error.getMessage());
                 Toast.makeText(mContext,
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
+//                hideDialog();
+                swipeRefresh.setRefreshing(false);
             }
         }) {
             @Override
@@ -231,13 +243,34 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
         AppController.getInstance().addToRequestQueue(strReq, "Get lop hoc");
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
+//    private void showDialog() {
+//        if (!pDialog.isShowing())
+//            pDialog.show();
+//    }
+//
+//    private void hideDialog() {
+//        if (pDialog.isShowing())
+//            pDialog.dismiss();
+//    }
 
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
+    @Override
+    public void onRefresh() {
+        ArrayList<ItemLop> itemLopArr = new ArrayList<>();
+        requestLopHoc(uid,currentDBKey,itemLopArr);
+
+        Toast.makeText(mContext, "currentDBKey: " + currentDBKey +
+                " currentadapter: " + currentAdapter, Toast.LENGTH_LONG).show();
+
+        switch (currentAdapter){
+            case LOP_MON_HOC:
+                initLopMonHoc();
+                break;
+            case LOP_KHOA_HOC:
+                initLopKhoaHoc();
+                break;
+            case NHOM:
+                initNhom();
+                break;
+        }
     }
 }

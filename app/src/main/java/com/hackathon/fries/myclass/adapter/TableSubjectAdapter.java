@@ -1,6 +1,8 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class TableSubjectAdapter extends BaseAdapter{
             R.color.bg_item_subject_7,
             R.color.bg_item_subject_8,
             R.color.bg_item_subject_9,
+            R.color.bg_item_subject_10
     };
 
 
@@ -102,6 +105,13 @@ public class TableSubjectAdapter extends BaseAdapter{
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null){
             view = lf.inflate(R.layout.item_subject_in_table, null);
+        }
+
+        if (position>=30 && position<=35) {
+            TextView txtName = (TextView)   view.findViewById(R.id.txtItemNameSubject);
+            txtName.setBackgroundColor(mContext.getResources().getColor(COLOR_ITEM[10]));
+            txtName.setText("-");
+            return view;
         }
 
         if (listSubjectInTable[position] == -1) return view;

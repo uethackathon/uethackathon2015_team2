@@ -48,6 +48,7 @@ public class ItemLopMonHoc {
     public int getNhomTH(){
         return nhomTH;
     }
+
     public String getTenVietTat(){
         if (ten == null) {
             return "";
@@ -57,6 +58,7 @@ public class ItemLopMonHoc {
         for (int i = 0; i < temp.length; i++) {
             vietTat += temp[i].charAt(0);
         }
+        vietTat = vietTat.toUpperCase();
         return vietTat;
     }
 }
