@@ -1,12 +1,17 @@
 package com.hackathon.fries.myclass.models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
  * Created by TooNies1810 on 11/20/15.
  */
 public class ItemTimeLine {
+    private static final String TAG = "ItemTimeLine";
     private String title;
+
+    //name of author post
     private String name;
     private String ava;
     private String content;
@@ -21,6 +26,13 @@ public class ItemTimeLine {
         this.content = content;
         this.like = like;
         this.isConfirmByTeacher = isConfirmByTeacher;
+
+        Log.i(TAG, "name: " + name);
+        Log.i(TAG, "title: " + title);
+        Log.i(TAG, "ava: " + ava);
+        Log.i(TAG, "content: " + content);
+        Log.i(TAG, "like: " + like);
+        Log.i(TAG, "is confirmed: " + isConfirmByTeacher);
     }
 
     public String getName() {

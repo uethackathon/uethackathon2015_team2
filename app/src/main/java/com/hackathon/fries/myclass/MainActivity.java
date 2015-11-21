@@ -164,38 +164,38 @@ public class MainActivity extends AppCompatActivity
 //                lopFragment.showLopMonHoc();
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getFragmentManager().popBackStack();
-                } else {
-                    if (!lopFragment.isVisible()){
-                        showLopFragment();
-                        Log.i(TAG, "is hidden");
-                    }
-                    lopFragment.showLopMonHoc();
                 }
+                if (!lopFragment.isVisible()) {
+                    showLopFragment();
+                    Log.i(TAG, "is hidden");
+                }
+                lopFragment.showLopMonHoc();
+
                 toolbar.setTitle("Lớp môn học");
                 break;
             case R.id.nav_lopKhoaHoc:
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getFragmentManager().popBackStack();
-                } else {
-                    if (!lopFragment.isVisible()){
-                        showLopFragment();
-                        Log.i(TAG, "is hidden");
-                    }
-                    lopFragment.showLopKhoaHoc();
                 }
+                if (!lopFragment.isVisible()) {
+                    showLopFragment();
+                    Log.i(TAG, "is hidden");
+                }
+                lopFragment.showLopKhoaHoc();
+
                 toolbar.setTitle("Lớp khoá học");
                 break;
             case R.id.nav_nhom:
 //                hideAllFragment();
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getFragmentManager().popBackStack();
-                } else {
-                    if (!lopFragment.isVisible()){
-                        showLopFragment();
-                        Log.i(TAG, "is hidden");
-                    }
-                    lopFragment.showNhomAdt();
                 }
+                if (!lopFragment.isVisible()) {
+                    showLopFragment();
+                    Log.i(TAG, "is hidden");
+                }
+                lopFragment.showNhomAdt();
+
                 toolbar.setTitle("Nhóm");
                 break;
             case R.id.nav_setting:
@@ -273,14 +273,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void goToTimeLine(String id) {
+    public void goToTimeLine(String idData, int lopType) {
         //Lay thong tin cac bai dang tren server ve
         //goi timelinefragment
         //set data cho listview
         TimelineFragment timelineFragment = new TimelineFragment();
-        timelineFragment.setIdLop(id);
+        timelineFragment.setIdLop(idData, lopType);
 
-        Toast.makeText(getApplicationContext(), "Id: " + id, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Id: " + idData, Toast.LENGTH_LONG).show();
 
         getFragmentManager().beginTransaction().
                 replace(R.id.container, timelineFragment).addToBackStack(null).commit();

@@ -4,7 +4,10 @@ package com.hackathon.fries.myclass.models;
  * Created by TooNies1810 on 11/21/15.
  */
 public class ItemComment {
+
+    //name of author comment
     private String name;
+    //ava of author comment
     private String avaUrl;
     private String content;
     private boolean isVote;

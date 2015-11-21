@@ -1,10 +1,13 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
 import com.hackathon.fries.myclass.R;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
  * Created by TooNies1810 on 11/20/15.
  */
 public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
+    private static final String TAG = "TimelineAdapter";
     private Context mContext;
     private ArrayList<ItemTimeLine> itemArr = new ArrayList<ItemTimeLine>();
 
@@ -57,20 +61,22 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
     @Override
     public void onBindViewHolder(AbstactHolder abstactHolder, int position) {
         if(abstactHolder.getViewHolderType() == 1){
-            Log.i("Post","abcd");
+            Log.i(TAG,"bat dau");
             final ItemTimeLine itemTimeLine = itemArr.get(position - 1);
             //itemPostHolder.getImgAvatar();
             ItemPostHolder itemPostHolder = (ItemPostHolder) abstactHolder;
             itemPostHolder.getTxtTitle().setText(itemTimeLine.getName());
             itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());
-            itemPostHolder.getTxtCountLike().setText(String.valueOf(itemTimeLine.getLike()) + " cám ơn");//
-            itemPostHolder.getTxtCountComment().setText(String.valueOf(itemTimeLine.getItemComments().size()) + " bình luận");//
+            itemPostHolder.getTxtCountLike().setText(itemTimeLine.getLike() + " cám ơn");//
+//            itemPostHolder.getTxtCountComment().setText(itemTimeLine.getItemComments().size() + " bình luận");//
             //itemPostHolder.getImgAvatarLastPost();
-            itemPostHolder.getTxtNameLastPost().setText(
-                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
-            itemPostHolder.getTxtCommentLastPost().setText(
-                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
+//            itemPostHolder.getTxtNameLastPost().setText(
+//                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
+//            itemPostHolder.getTxtCommentLastPost().setText(
+//                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
         } else {
+            Log.i(TAG,"by xong");
+               // ItemWritePostHolder itemWritePostHolder = (ItemWritePostHolder) abstactHolder;
         }
 
     }

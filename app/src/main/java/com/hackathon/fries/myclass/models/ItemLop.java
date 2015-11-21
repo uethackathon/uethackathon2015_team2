@@ -8,11 +8,13 @@ public class ItemLop {
     public String giangVien;
     public int soNguoi;
     public String id;
+    public String idData;
 
     public String vietTat;
 
-    public ItemLop(String ten, String id, String giangVien, int soNguoi) {
+    public ItemLop(String ten,String idData, String id, String giangVien, int soNguoi) {
         this.ten = ten;
+        this.idData = idData;
         this.giangVien = giangVien;
         this.soNguoi = soNguoi;
         this.id = id;
@@ -45,5 +47,9 @@ public class ItemLop {
 
     public String getVietTat() {
         return vietTat;
+    }
+
+    public String getIdData() {
+        return idData;
     }
 }
