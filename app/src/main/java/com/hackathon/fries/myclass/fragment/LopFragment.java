@@ -1,9 +1,7 @@
 package com.hackathon.fries.myclass.fragment;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,7 +52,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     public static final int LOP_KHOA_HOC = 2;
     public static final int NHOM = 3;
 
-    public static final String KEY_LOP_MON_HOC = "lopmonhoc";
+    public static final String KEY_LOP_MON_HOC = "classSubject";
     public static final String KEY_LOP_KHOA_HOC = "class_xes";
     public static final String KEY_NHOM = "nhom";
 
@@ -121,15 +119,15 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 
     private void initLopMonHoc() {
         ArrayList<ItemLop> itemArr = new ArrayList<>();
-//        itemArr.add(new ItemLop("Tin hoc cơ sở 4", "INT2204 1", "Lê Nguyên Khôi", 90));
-//        itemArr.add(new ItemLop("Cơ nhiệt", "INT2204 1", "Đinh Văn Châu", 90));
-//        itemArr.add(new ItemLop("Tin học cơ sở 1", "INT2204 1", "Lê Nguyên Khôi", 90));
-//        itemArr.add(new ItemLop("Xác suất thống kê", "INT2204 1", "Lê Phê Đô", 90));
-//        itemArr.add(new ItemLop("Tin nâng cao", "INT2204 1", "Lê Nguyên Khôi", 90));
-//        itemArr.add(new ItemLop("Lập trình hướng đối tượng", "INT2204 1", "Lê Nguyên Khôi", 90));
-//        itemArr.add(new ItemLop("Thiết kế giao diện người dùng", "INT2204 1", "Nguyễn Thị Nhật Thanh", 90));
-//        itemArr.add(new ItemLop("Giải tích", "INT2204 1", "Lê Nguyên Khôi", 90));
-//        itemArr.add(new ItemLop("Tối ưu hoá", "INT2204 1", "Lê Thu Hà", 90));
+        itemArr.add(new ItemLop("Tin hoc cơ sở 4","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+        itemArr.add(new ItemLop("Cơ nhiệt","12", "INT2204 1", "Đinh Văn Châu", 90));
+        itemArr.add(new ItemLop("Tin học cơ sở 1","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+        itemArr.add(new ItemLop("Xác suất thống kê","12", "INT2204 1", "Lê Phê Đô", 90));
+        itemArr.add(new ItemLop("Tin nâng cao","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+        itemArr.add(new ItemLop("Lập trình hướng đối tượng","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+        itemArr.add(new ItemLop("Thiết kế giao diện người dùng","12", "INT2204 1", "Nguyễn Thị Nhật Thanh", 90));
+        itemArr.add(new ItemLop("Giải tích","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+        itemArr.add(new ItemLop("Tối ưu hoá","12", "INT2204 1", "Lê Thu Hà", 90));
 //        requestLopHoc(uid, KEY_LOP_MON_HOC, itemArr);
         lopMonHocAdt = new LopAdapter(mContext);
         lopMonHocAdt.setItemArr(itemArr);
@@ -181,7 +179,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Get lop hoc Response: " + response.toString());
+                Log.i(TAG, "Get lop hoc Response: " + response.toString());
 //                hideDialog();
                 swipeRefresh.setRefreshing(false);
                 try {
@@ -190,17 +188,23 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
                     if (!error) {
                         JSONObject lopHoc = jObj.getJSONObject("group");
                         String id = lopHoc.getString("id");
-//                        String idKhoa = lopKhoaHoc.getString("idKhoa");
+                        String idLop = lopHoc.getString("maLMH");
                         String nameLop = lopHoc.getString("name");
                         String baseLop = lopHoc.getString("base");
                         int soSV = lopHoc.getInt("soSV");
 
                         Log.i(TAG, "id: " + id);
-//                        Log.i(TAG, "idKhoa: " + idKhoa);
+                        Log.i(TAG, "idLop: " + idLop);
                         Log.i(TAG, "name lop: " + nameLop);
                         Log.i(TAG, "so sv: " + soSV);
 
-                        itemArr.add(new ItemLop(nameLop, id, "", "", soSV));
+                        JSONObject jsonGiangVien = lopHoc.getJSONObject("teacher");
+                        String idGiangVien = jsonGiangVien.getString("id");
+                        String nameGiangVien = jsonGiangVien.getString("name");
+                        String emailGiangVien = jsonGiangVien.getString("email");
+                        String typeGiangVien = jsonGiangVien.getString("type");
+
+                        itemArr.add(new ItemLop(nameLop, id, idLop, nameGiangVien, soSV));
 
                         Toast.makeText(mContext, "lay lop hoc thành công!", Toast.LENGTH_LONG).show();
 

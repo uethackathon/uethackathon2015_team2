@@ -41,5 +41,10 @@
     <string name="thoi_khoa_bieu">Thời khóa biểu</string>
     <string name="title_activity_write_post">WritePostActivity</string>
     <string name="title_activity_post_writer">PostWriterActivity</string>
+    <string name="author_name">Trần Đức Hùng</string>
+    <string name="title_post">[Hỏi thông tin bài tập]</string>
+    <string name="content_post">Mình muốn hỏi bài tập JAVA hôm nay phải làm những gì thế ạ? Mình cám ơn nhiều :)</string>
+    <string name="comment_author">Bạn phải làm bài 20 21 22 ở trong sách giáo khoa cô có cho mà</string>
+    <string name="question_post">Hãy đặt câu hỏi ...</string>
 
 </resources>

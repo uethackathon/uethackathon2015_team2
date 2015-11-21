@@ -22,10 +22,10 @@ public class ItemPostHolder extends AbstactHolder {
         imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
         txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
         txtContent = (TextView) itemView.findViewById(R.id.tv_content);
-        imgAvatarLastPost = (ImageView) itemView.findViewById(R.id.imgAvatarLastPost);
-        txtNameLastPost = (TextView) itemView.findViewById(R.id.txtNameLastComment);
+        imgAvatarLastPost = (ImageView) itemView.findViewById(R.id.ivAvaComment);
+        txtNameLastPost = (TextView) itemView.findViewById(R.id.txtUserName);
 
-        txtCommentLastPost = (TextView) itemView.findViewById(R.id.txtContentLastComment);
+        txtCommentLastPost = (TextView) itemView.findViewById(R.id.txtContentComment);
 
         txtCountLike = (TextView) itemView.findViewById(R.id.txtCountLike);
         txtCountComment = (TextView) itemView.findViewById(R.id.txtCountComment);

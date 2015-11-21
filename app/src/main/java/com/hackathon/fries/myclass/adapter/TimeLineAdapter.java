@@ -1,12 +1,15 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
@@ -16,6 +19,10 @@ import com.hackathon.fries.myclass.holder.ItemPostHolder;
 import com.hackathon.fries.myclass.holder.ItemWritePostHolder;
 import com.hackathon.fries.myclass.models.ItemTimeLine;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -62,18 +69,38 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
     public void onBindViewHolder(AbstactHolder abstactHolder, int position) {
         if(abstactHolder.getViewHolderType() == 1){
             Log.i(TAG,"bat dau");
-            final ItemTimeLine itemTimeLine = itemArr.get(position - 1);
+
             //itemPostHolder.getImgAvatar();
             ItemPostHolder itemPostHolder = (ItemPostHolder) abstactHolder;
-            itemPostHolder.getTxtTitle().setText(itemTimeLine.getName());
+            final ItemTimeLine itemTimeLine = itemArr.get(position - 1);
+            try {
+                ImageView i = itemPostHolder.getImgAvatar();
+                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(itemTimeLine.getAva()).getContent());
+                i.setImageBitmap(bitmap);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            itemPostHolder.getTxtTitle().setText(itemTimeLine.getTitle());
             itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());
             itemPostHolder.getTxtCountLike().setText(itemTimeLine.getLike() + " cám ơn");//
-//            itemPostHolder.getTxtCountComment().setText(itemTimeLine.getItemComments().size() + " bình luận");//
-            //itemPostHolder.getImgAvatarLastPost();
-//            itemPostHolder.getTxtNameLastPost().setText(
-//                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
-//            itemPostHolder.getTxtCommentLastPost().setText(
-//                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
+            itemPostHolder.getTxtCountComment().setText(itemTimeLine.getItemComments().size() + " bình luận");//
+            try {
+                ImageView i = itemPostHolder.getImgAvatarLastPost();
+                Bitmap bitmap = BitmapFactory.decodeStream((InputStream)
+                        new URL(itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getAvaUrl()).getContent());
+                i.setImageBitmap(bitmap);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            itemPostHolder.getTxtNameLastPost().setText(
+                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
+            itemPostHolder.getTxtCommentLastPost().setText(
+                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
         } else {
             Log.i(TAG,"by xong");
                // ItemWritePostHolder itemWritePostHolder = (ItemWritePostHolder) abstactHolder;

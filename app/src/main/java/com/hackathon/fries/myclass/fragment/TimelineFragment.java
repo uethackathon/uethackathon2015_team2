@@ -1,10 +1,7 @@
 package com.hackathon.fries.myclass.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -25,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hackathon.fries.myclass.R;
-import com.hackathon.fries.myclass.dialog.ViewDialog;
 import com.hackathon.fries.myclass.models.ItemComment;
 import com.hackathon.fries.myclass.models.ItemTimeLine;
 import com.hackathon.fries.myclass.adapter.TimeLineAdapter;
@@ -94,29 +89,29 @@ public class TimelineFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                // TODO Auto-generated method stub
-                super.onScrolled(recyclerView, dx, dy);
-            }
+//        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                // TODO Auto-generated method stub
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                // TODO Auto-generated method stub
+//                //super.onScrollStateChanged(recyclerView, newState);
+//                int firstPos = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+//                if (firstPos > 0) {
+//                    swipeRefresh.setEnabled(false);
+//                } else {
+//                    swipeRefresh.setEnabled(true);
+//                }
+//            }
+//        });
 
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                // TODO Auto-generated method stub
-                //super.onScrollStateChanged(recyclerView, newState);
-                int firstPos = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-                if (firstPos > 0) {
-                    swipeRefresh.setEnabled(false);
-                } else {
-                    swipeRefresh.setEnabled(true);
-                }
-            }
-        });
-
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+//        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
 //                Toast.makeText(mainContext, "da nhan", Toast.LENGTH_LONG).show();
 //                switch (event.getAction()) {
 //                    case MotionEvent.ACTION_UP:
@@ -124,9 +119,9 @@ public class TimelineFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                        mDialog.showDialog((Activity) mainContext, "ok");
 //                        break;
 //                }
-                return true;
-            }
-        });
+//                return true;
+//            }
+//        });
     }
 
     public void initData() {
@@ -159,29 +154,29 @@ public class TimelineFragment extends Fragment implements SwipeRefreshLayout.OnR
         ArrayList<ItemComment> itemCommentArr = new ArrayList<>();
 
         itemCommentArr.add(new ItemComment("", "", "", false));
-//        itemCommentArr.add(new ItemComment("Tran Van Tu", "", "thang nay hoi cau ngu vcc", false));
-//        itemCommentArr.add(new ItemComment("Tran Minh Quy", "", "thang nay hoi cau ngu vcc", true));
-//        itemCommentArr.add(new ItemComment("Nguyen Tien Minh", "", "thang nay hoi cau ngu vcc", false));
+        itemCommentArr.add(new ItemComment("Tran Van Tu", "", "thang nay hoi cau ngu vcc", false));
+        itemCommentArr.add(new ItemComment("Tran Minh Quy", "", "thang nay hoi cau ngu vcc", true));
+        itemCommentArr.add(new ItemComment("Nguyen Tien Minh", "", "thang nay hoi cau ngu vcc", false));
 
         itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, false));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, false));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
-//        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, false));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, false));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
+        itemPostArr.add(new ItemTimeLine("Hoi ngu", "Tran Duc Hung", "", "Hom nay em co cau hoi rat hay danh cho quy vi", 12, true));
 
         itemPostArr.get(0).setItemComments(itemCommentArr);
-//        itemPostArr.get(1).setItemComments(itemCommentArr);
-//        itemPostArr.get(2).setItemComments(itemCommentArr);
-//        itemPostArr.get(3).setItemComments(itemCommentArr);
-//        itemPostArr.get(4).setItemComments(itemCommentArr);
-//        itemPostArr.get(5).setItemComments(itemCommentArr);
-//        itemPostArr.get(6).setItemComments(itemCommentArr);
-//        itemPostArr.get(7).setItemComments(itemCommentArr);
-//        itemPostArr.get(8).setItemComments(itemCommentArr);
+        itemPostArr.get(1).setItemComments(itemCommentArr);
+        itemPostArr.get(2).setItemComments(itemCommentArr);
+        itemPostArr.get(3).setItemComments(itemCommentArr);
+        itemPostArr.get(4).setItemComments(itemCommentArr);
+        itemPostArr.get(5).setItemComments(itemCommentArr);
+        itemPostArr.get(6).setItemComments(itemCommentArr);
+        itemPostArr.get(7).setItemComments(itemCommentArr);
+        itemPostArr.get(8).setItemComments(itemCommentArr);
     }
 //    private boolean isDataLoaded = false;
 

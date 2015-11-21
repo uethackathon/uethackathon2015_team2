@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final int REQUEST_CODE_EDIT = 1234;
     private static final String TAG = "MainActivity";
+    private static final String URL_DOWNLOAD_APK = "https://www.dropbox.com/s/nscoya56e89bffk/LopToi%20-%20Fries.apk?dl=0";
     private LopFragment lopFragment = new LopFragment();
     private ThoiKhoaBieuFragment thoiKhoaBieuFragment = new ThoiKhoaBieuFragment();
 
@@ -205,6 +206,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_share:
 //                hideAllFragment();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Ứng dụng \"Lớp tôi\" thật tuyệt vời!\n" + URL_DOWNLOAD_APK);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 toolbar.setTitle("Chia sẻ");
                 break;
             case R.id.nav_thoikhoabieu:

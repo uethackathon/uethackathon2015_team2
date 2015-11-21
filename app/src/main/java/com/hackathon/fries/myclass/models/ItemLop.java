@@ -7,7 +7,11 @@ public class ItemLop {
     public String ten;
     public String giangVien;
     public int soNguoi;
+
+    //thong tin ve ma mon hoc
     public String id;
+
+    //id duoc luu tren database (nhan dien cac lop mon hoc khac nhau)
     public String idData;
 
     public String vietTat;

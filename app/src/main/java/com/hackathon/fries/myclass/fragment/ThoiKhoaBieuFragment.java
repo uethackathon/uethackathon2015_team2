@@ -2,7 +2,12 @@ package com.hackathon.fries.myclass.fragment;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +21,8 @@ import android.widget.Toast;
 import com.hackathon.fries.myclass.R;
 import com.hackathon.fries.myclass.adapter.TableSubjectAdapter;
 import com.hackathon.fries.myclass.models.ItemLopMonHoc;
+
+import java.util.List;
 
 /**
  * Created by TMQ on 20-Nov-15.
