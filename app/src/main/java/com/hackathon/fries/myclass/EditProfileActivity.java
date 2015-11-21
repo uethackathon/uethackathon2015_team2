@@ -67,21 +67,26 @@ public class EditProfileActivity extends Activity {
 
         ivAvar.setFillColor(Color.WHITE);
 
+        edtName.setInputType(InputType.TYPE_NULL);
+        edtMssv.setInputType(InputType.TYPE_NULL);
         edtEmail.setInputType(InputType.TYPE_NULL);
+        edtLopKhoaHoc.setInputType(InputType.TYPE_NULL);
 
         btnDone = (Button) findViewById(R.id.btn_editdone);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edtName.getText().toString();
-                String lop = edtLopKhoaHoc.getText().toString();
-                String mssv = edtMssv.getText().toString();
+//                String name = edtName.getText().toString();
+//                String lop = edtLopKhoaHoc.getText().toString();
+//                String mssv = edtMssv.getText().toString();
 
-                if (!name.equalsIgnoreCase("") && !lop.equalsIgnoreCase("")) {
-
-                    updateUser(name, lop, mssv, edtEmail.getText().toString());
-                }
+//                if (!name.equalsIgnoreCase("") && !lop.equalsIgnoreCase("")) {
+//
+//                    updateUser(name, lop, mssv, edtEmail.getText().toString());
+//                }
+                setResult(RESULT_OK);
+                finish();
             }
         });
     }
@@ -117,6 +122,7 @@ public class EditProfileActivity extends Activity {
                         String lop = user.getString("lop");
                         String mssv = user.getString("mssv");
                         String type = user.getString("type");
+                        String ava = user.getString("ava");
 
 
 //                        String lop = "K58CLC";
@@ -138,7 +144,7 @@ public class EditProfileActivity extends Activity {
 
                         // Inserting row in users table
                         db.deleteUsers();
-                        db.addUser(name, email, uid, created_at, lop, mssv, type);
+                        db.addUser(name, email, uid, created_at, lop, mssv, type, ava);
 
                         // Return mainActivity
                         //Tra intent ve MainActivity

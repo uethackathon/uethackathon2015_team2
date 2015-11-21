@@ -27,6 +27,7 @@ public class ItemWritePostHolder extends AbstactHolder {
             public void onClick(View v) {
                 Intent intent = new Intent((Activity)AppManager.getInstance().getMainContext(), PostWriterActivity.class);
                 ((Activity)AppManager.getInstance().getMainContext()).startActivity(intent);
+
             }
         });
 

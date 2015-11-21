@@ -146,34 +146,38 @@ public class LoginActivity extends Activity {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
-//                        String name = user.getString("name");
+                        String ava = user.getString("avatar");
                         String email = user.getString("email");
-                        String created_at = user.getString("created_at");
+//                        String created_at = user.getString("created_at");
                         String lop = user.getString("lop");
                         String mssv = user.getString("mssv");
                         String type = user.getString("type");
+                        String name = user.getString("name");
 
-                        String name = "Không tên";
+//                        String name = "Không tên";
 //                        String lop = "K58CLC";
 //                        String mssv = "13020285";
 //                        String type = "Sinh viên";
+                        String created_at = "";
 
-                        if (type.equalsIgnoreCase("student")){
+                        if (type.equalsIgnoreCase("student")) {
                             type = "Sinh viên";
-                        } else if(type.equalsIgnoreCase("teacher")){
+                        } else if (type.equalsIgnoreCase("teacher")) {
                             type = "Giảng viên";
                             mssv = "";
                         }
 
 
                         Log.i(TAG, "login: " + name);
+                        Log.i(TAG, "login: " + ava);
                         Log.i(TAG, "login: " + email);
-                        Log.i(TAG, "login: " + created_at);
+//                        Log.i(TAG, "login: " + created_at);
                         Log.i(TAG, "login: " + lop);
                         Log.i(TAG, "login: " + mssv);
                         Log.i(TAG, "login: " + type);
+
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at, lop, mssv, type);
+                        db.addUser(name, email, uid, created_at, lop, mssv, type, ava);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,

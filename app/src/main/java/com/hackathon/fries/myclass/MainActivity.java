@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         ivAva.setFillColor(Color.WHITE);
 
         HashMap<String, String> user = sqlite.getUserDetails();
-        tvName.setText(user.get(SQLiteHandler.KEY_NAME) + "(" + user.get(SQLiteHandler.KEY_TYPE) + ")");
+        tvName.setText(user.get(SQLiteHandler.KEY_NAME) + " (" + user.get(SQLiteHandler.KEY_TYPE) + ")");
         tvEmail.setText(user.get(SQLiteHandler.KEY_EMAIL));
     }
 
@@ -256,10 +256,10 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode) {
             case REQUEST_CODE_EDIT:
                 if (resultCode == RESULT_OK) {
-                    String name = data.getStringExtra("name");
-                    String lop = data.getStringExtra("lop");
-                    String mssv = data.getStringExtra("mssv");
-                    String type = data.getStringExtra("type");
+//                    String name = data.getStringExtra("name");
+//                    String lop = data.getStringExtra("lop");
+//                    String mssv = data.getStringExtra("mssv");
+//                    String type = data.getStringExtra("type");
 
                     //Update csdl trong may va tren server
 //                    sqlite.updateUser(lop);
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 ////                    String mssv = user.get("mssv");
 //                    String type = user.get("type");
 
-                    tvName.setText(name + "(" + type + ")");
+//                    tvName.setText(name + "(" + type + ")");
 
                     checkLogDb();
                 }
@@ -284,7 +284,11 @@ public class MainActivity extends AppCompatActivity
         //goi timelinefragment
         //set data cho listview
         TimelineFragment timelineFragment = new TimelineFragment();
-        timelineFragment.setIdLop(idData, lopType);
+        Bundle b = new Bundle();
+        b.putString("idData", idData);
+        b.putInt("lopType", lopType);
+        timelineFragment.setArguments(b);
+//        timelineFragment.setIdLop(idData, lopType);
 
         Toast.makeText(getApplicationContext(), "Id: " + idData, Toast.LENGTH_LONG).show();
 

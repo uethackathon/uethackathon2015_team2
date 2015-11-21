@@ -26,9 +26,11 @@ import com.hackathon.fries.myclass.helper.SQLiteHandler;
 import com.hackathon.fries.myclass.models.ItemLop;
 import com.hackathon.fries.myclass.adapter.LopAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +62,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     private String uid;
     private String currentDBKey;
 
+    public static int positionItemClick = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -113,24 +116,26 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 //        Toast.makeText(mContext, "ok", Toast.LENGTH_LONG).show();
         MainActivity mainActivity = (MainActivity) mContext;
 
+        LopFragment.positionItemClick = position;
         ItemLop item = (ItemLop) parent.getAdapter().getItem(position);
-        mainActivity.goToTimeLine(item.getIdData(),currentAdapter);
+        mainActivity.goToTimeLine(item.getIdData(), currentAdapter);
     }
 
     private void initLopMonHoc() {
         ArrayList<ItemLop> itemArr = new ArrayList<>();
-        itemArr.add(new ItemLop("Tin hoc cơ sở 4","12", "INT2204 1", "Lê Nguyên Khôi", 90));
-        itemArr.add(new ItemLop("Cơ nhiệt","12", "INT2204 1", "Đinh Văn Châu", 90));
-        itemArr.add(new ItemLop("Tin học cơ sở 1","12", "INT2204 1", "Lê Nguyên Khôi", 90));
-        itemArr.add(new ItemLop("Xác suất thống kê","12", "INT2204 1", "Lê Phê Đô", 90));
-        itemArr.add(new ItemLop("Tin nâng cao","12", "INT2204 1", "Lê Nguyên Khôi", 90));
-        itemArr.add(new ItemLop("Lập trình hướng đối tượng","12", "INT2204 1", "Lê Nguyên Khôi", 90));
-        itemArr.add(new ItemLop("Thiết kế giao diện người dùng","12", "INT2204 1", "Nguyễn Thị Nhật Thanh", 90));
-        itemArr.add(new ItemLop("Giải tích","12", "INT2204 1", "Lê Nguyên Khôi", 90));
-        itemArr.add(new ItemLop("Tối ưu hoá","12", "INT2204 1", "Lê Thu Hà", 90));
-//        requestLopHoc(uid, KEY_LOP_MON_HOC, itemArr);
+//        itemArr.add(new ItemLop("Tin hoc cơ sở 4","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+//        itemArr.add(new ItemLop("Cơ nhiệt","12", "INT2204 1", "Đinh Văn Châu", 90));
+//        itemArr.add(new ItemLop("Tin học cơ sở 1","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+//        itemArr.add(new ItemLop("Xác suất thống kê","12", "INT2204 1", "Lê Phê Đô", 90));
+//        itemArr.add(new ItemLop("Tin nâng cao","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+//        itemArr.add(new ItemLop("Lập trình hướng đối tượng","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+//        itemArr.add(new ItemLop("Thiết kế giao diện người dùng","12", "INT2204 1", "Nguyễn Thị Nhật Thanh", 90));
+//        itemArr.add(new ItemLop("Giải tích","12", "INT2204 1", "Lê Nguyên Khôi", 90));
+//        itemArr.add(new ItemLop("Tối ưu hoá","12", "INT2204 1", "Lê Thu Hà", 90));
+        requestLopHoc(uid, KEY_LOP_MON_HOC, itemArr);
         lopMonHocAdt = new LopAdapter(mContext);
         lopMonHocAdt.setItemArr(itemArr);
+        AppManager.getInstance().setArrItemLopMonHoc(itemArr);
     }
 
     private void initLopKhoaHoc() {
@@ -140,6 +145,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
         requestLopHoc(uid, KEY_LOP_KHOA_HOC, itemArr);
         lopKhoaHocAdt = new LopAdapter(mContext);
         lopKhoaHocAdt.setItemArr(itemArr);
+        AppManager.getInstance().setArrItemLopKhoaHoc(itemArr);
     }
 
     private void initNhom() {
@@ -148,24 +154,29 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 //        requestLopHoc(uid, KEY_NHOM, itemArr);
         nhomAdt = new LopAdapter(mContext);
         nhomAdt.setItemArr(itemArr);
+
     }
 
     public void showLopMonHoc() {
         lvMain.setAdapter(lopMonHocAdt);
         currentAdapter = LOP_MON_HOC;
         currentDBKey = KEY_LOP_MON_HOC;
+
+        AppManager.getInstance().setCurrentAdapter(currentAdapter);
     }
 
     public void showLopKhoaHoc() {
         lvMain.setAdapter(lopKhoaHocAdt);
         currentAdapter = LOP_KHOA_HOC;
         currentDBKey = KEY_LOP_KHOA_HOC;
+        AppManager.getInstance().setCurrentAdapter(currentAdapter);
     }
 
     public void showNhomAdt() {
         lvMain.setAdapter(nhomAdt);
         currentAdapter = NHOM;
         currentDBKey = KEY_NHOM;
+        AppManager.getInstance().setCurrentAdapter(currentAdapter);
     }
 
 
@@ -186,26 +197,32 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
-                        JSONObject lopHoc = jObj.getJSONObject("group");
-                        String id = lopHoc.getString("id");
-                        String idLop = lopHoc.getString("maLMH");
-                        String nameLop = lopHoc.getString("name");
-                        String baseLop = lopHoc.getString("base");
-                        int soSV = lopHoc.getInt("soSV");
 
-                        Log.i(TAG, "id: " + id);
-                        Log.i(TAG, "idLop: " + idLop);
-                        Log.i(TAG, "name lop: " + nameLop);
-                        Log.i(TAG, "so sv: " + soSV);
+                        JSONArray jsonLopHocArray = jObj.getJSONArray("group");
 
-                        JSONObject jsonGiangVien = lopHoc.getJSONObject("teacher");
-                        String idGiangVien = jsonGiangVien.getString("id");
-                        String nameGiangVien = jsonGiangVien.getString("name");
-                        String emailGiangVien = jsonGiangVien.getString("email");
-                        String typeGiangVien = jsonGiangVien.getString("type");
+                        for (int i = 0; i < jsonLopHocArray.length(); i++) {
+                            JSONObject lopHoc = jsonLopHocArray.getJSONObject(i);
+                            String id = lopHoc.getString("id");
+                            String idLop = lopHoc.getString("name");
+                            String nameLop = lopHoc.getString("name");
+                            String baseLop = lopHoc.getString("base");
+                            int soSV = lopHoc.getInt("soSV");
 
-                        itemArr.add(new ItemLop(nameLop, id, idLop, nameGiangVien, soSV));
+                            Log.i(TAG, "id: " + id);
+                            Log.i(TAG, "idLop: " + idLop);
+                            Log.i(TAG, "name lop: " + nameLop);
+                            Log.i(TAG, "so sv: " + soSV);
 
+                            JSONObject jsonGiangVien = jsonLopHocArray.getJSONObject(i).getJSONObject("teacher");
+
+                            String nameGiangVien = jsonGiangVien.getString("name");
+                            String idGiangVien = jsonGiangVien.getString("id");
+                            String emailGiangVien = jsonGiangVien.getString("email");
+                            String typeGiangVien = jsonGiangVien.getString("type");
+
+
+                            itemArr.add(new ItemLop(nameLop, id, idLop, nameGiangVien, soSV));
+                        }
                         Toast.makeText(mContext, "lay lop hoc thành công!", Toast.LENGTH_LONG).show();
 
                     } else {
@@ -260,12 +277,12 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onRefresh() {
         ArrayList<ItemLop> itemLopArr = new ArrayList<>();
-        requestLopHoc(uid,currentDBKey,itemLopArr);
+        requestLopHoc(uid, currentDBKey, itemLopArr);
 
         Toast.makeText(mContext, "currentDBKey: " + currentDBKey +
                 " currentadapter: " + currentAdapter, Toast.LENGTH_LONG).show();
 
-        switch (currentAdapter){
+        switch (currentAdapter) {
             case LOP_MON_HOC:
                 initLopMonHoc();
                 break;

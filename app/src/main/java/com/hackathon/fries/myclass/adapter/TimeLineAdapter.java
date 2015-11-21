@@ -73,6 +73,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
             //itemPostHolder.getImgAvatar();
             ItemPostHolder itemPostHolder = (ItemPostHolder) abstactHolder;
             final ItemTimeLine itemTimeLine = itemArr.get(position - 1);
+            itemPostHolder.setListComment(itemTimeLine.getItemComments());
             try {
                 ImageView i = itemPostHolder.getImgAvatar();
                 Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(itemTimeLine.getAva()).getContent());
@@ -82,25 +83,19 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Log.i(TAG, "title" + itemTimeLine.getTitle());
             itemPostHolder.getTxtTitle().setText(itemTimeLine.getTitle());
             itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());
             itemPostHolder.getTxtCountLike().setText(itemTimeLine.getLike() + " cám ơn");//
             itemPostHolder.getTxtCountComment().setText(itemTimeLine.getItemComments().size() + " bình luận");//
-            try {
-                ImageView i = itemPostHolder.getImgAvatarLastPost();
-                Bitmap bitmap = BitmapFactory.decodeStream((InputStream)
-                        new URL(itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getAvaUrl()).getContent());
-                i.setImageBitmap(bitmap);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(itemTimeLine.getItemComments().size() > 0){
+                itemPostHolder.getTxtNameLastPost().setText(
+                        itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
+                itemPostHolder.getTxtCommentLastPost().setText(
+                        itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
             }
 
-            itemPostHolder.getTxtNameLastPost().setText(
-                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
-            itemPostHolder.getTxtCommentLastPost().setText(
-                    itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
         } else {
             Log.i(TAG,"by xong");
                // ItemWritePostHolder itemWritePostHolder = (ItemWritePostHolder) abstactHolder;

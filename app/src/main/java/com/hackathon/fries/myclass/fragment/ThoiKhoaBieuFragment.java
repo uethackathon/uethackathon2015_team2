@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,18 @@ import android.widget.Toast;
 
 import com.hackathon.fries.myclass.R;
 import com.hackathon.fries.myclass.adapter.TableSubjectAdapter;
+import com.hackathon.fries.myclass.dialog.PopupComments;
+import com.hackathon.fries.myclass.models.ItemLop;
 import com.hackathon.fries.myclass.models.ItemLopMonHoc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by TMQ on 20-Nov-15.
  */
 public class ThoiKhoaBieuFragment extends Fragment implements AdapterView.OnItemClickListener{
+    private static final String TAG = "ThoiKhoaBieuFragment";
     private Context mContext;
     private View rootView;
     private GridView gridSubject;

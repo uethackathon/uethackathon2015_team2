@@ -32,8 +32,8 @@ public class RegisterActivity extends Activity {
     private EditText inputEmail;
     private EditText inputMssv;
     private EditText inputPassword;
-    private EditText inputRePassword;
-    private EditText inputLop;
+//    private EditText inputRePassword;
+//    private EditText inputLop;
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
@@ -45,9 +45,9 @@ public class RegisterActivity extends Activity {
 
         inputMssv = (EditText) findViewById(R.id.edt_mssv);
         inputEmail = (EditText) findViewById(R.id.email);
-        inputLop = (EditText) findViewById(R.id.edt_lop);
+//        inputLop = (EditText) findViewById(R.id.edt_lop);
         inputPassword = (EditText) findViewById(R.id.password);
-        inputRePassword = (EditText) findViewById(R.id.edt_repassword);
+//        inputRePassword = (EditText) findViewById(R.id.edt_repassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
 
@@ -76,14 +76,15 @@ public class RegisterActivity extends Activity {
                 String mssv = inputMssv.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-                String rePass = inputRePassword.getText().toString().trim();
-                String lop = inputLop.getText().toString().trim();
+//                String rePass = inputRePassword.getText().toString().trim();
+//                String lop = inputLop.getText().toString().trim();
 
-                String name = "";
-                if (!checkRePassword(password, rePass)){
-                    Toast.makeText(getApplicationContext(), "Mật khẩu nhập lại không khớp!", Toast.LENGTH_SHORT).show();
-                } else if (!mssv.isEmpty() && !email.isEmpty() && !password.isEmpty() && !lop.isEmpty()) {
-                    registerUser(name, email, password, lop, mssv);
+//                String name = "";
+//                if (!checkRePassword(password, rePass)){
+//                    Toast.makeText(getApplicationContext(), "Mật khẩu nhập lại không khớp!", Toast.LENGTH_SHORT).show();
+//                } else
+                if (!mssv.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    registerUser("", email, password, "", mssv);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_LONG)
@@ -137,8 +138,8 @@ public class RegisterActivity extends Activity {
                         JSONObject user = jObj.getJSONObject("user");
 //                        String name = user.getString("name");
                         String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
+//                        String created_at = user
+//                                .getString("created_at");
                         String lop = user.getString("lop");
                         String mssv = user.getString("mssv");
                         String type = user.getString("type");
@@ -150,7 +151,7 @@ public class RegisterActivity extends Activity {
 
                         Log.i(TAG, "register: " + name);
                         Log.i(TAG, "register: " + email);
-                        Log.i(TAG, "register: " + created_at);
+//                        Log.i(TAG, "register: " + created_at);
                         Log.i(TAG, "register: " + lop);
                         Log.i(TAG, "register: " + mssv);
                         Log.i(TAG, "register: " + type);
@@ -198,7 +199,7 @@ public class RegisterActivity extends Activity {
 //                params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
-                params.put("lop", lop);
+//                params.put("lop", lop);
                 params.put("mssv", mssv);
 
 

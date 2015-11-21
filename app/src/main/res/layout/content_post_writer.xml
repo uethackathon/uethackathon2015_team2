@@ -37,14 +37,24 @@
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/topPanelPosWrite"
             android:inputType="textMultiLine"
             android:ems="50"
-            android:id="@+id/editText2"
+            android:hint="@string/title_post_hint"
+            android:id="@+id/edt_titlepost"
+            android:background="#00000000"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_titlepost"
+            android:inputType="textMultiLine"
+            android:hint="@string/content_hint"
+            android:ems="50"
+            android:id="@+id/edt_contentPost"
             android:background="#00000000"
             />
 
@@ -57,7 +67,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView4"
+                android:id="@+id/iv_post"
                 android:src="@mipmap/ic_action"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />

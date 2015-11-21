@@ -7,7 +7,7 @@ public class AppConfig {
 	//Server get LopKhoaHoc information
 	public static final String URL_GET_LOPKHOAHOC = "http://tutran.net/v1/getGroup";
 	//Server post posts
-	public static final String URL_POST_POST = "";
+	public static final String URL_POST_POST = "http://tutran.net/v1/post";
 	// Server user login url
 	public static String URL_LOGIN = "http://tutran.net/v1/login";
 	// Server user register url

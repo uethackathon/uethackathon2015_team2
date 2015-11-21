@@ -27,6 +27,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_AVATAR = "avatar";
     public static final String KEY_UID = "uid";
     public static final String KEY_CREATED_AT = "created_at";
     public static final String KEY_LOP_KHOA_HOC = "lop_khoa_hoc";
@@ -49,7 +50,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_CREATED_AT + " TEXT,"
                 + KEY_LOP_KHOA_HOC + " TEXT,"
                 + KEY_MSSV + " TEXT,"
-                + KEY_TYPE + " TEXT"
+                + KEY_TYPE + " TEXT,"
+                + KEY_AVATAR + " TEXT"
                 + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -69,7 +71,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      */
-    public void addUser(String name, String email, String uid, String created_at, String lop, String mssv, String type) {
+    public void addUser(String name, String email, String uid, String created_at, String lop, String mssv, String type, String ava) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -80,6 +82,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(KEY_LOP_KHOA_HOC, lop); // lop khoa hoc
         values.put(KEY_MSSV, mssv); // ma so sinh vien
         values.put(KEY_TYPE, type); // loai doi tuong nguoi dung
+        values.put(KEY_AVATAR, ava); // ava nguoi dung
 
         // Inserting Row
         long id = db.insert(TABLE_USER, null, values);
@@ -152,6 +155,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         int indexUID = cursor.getColumnIndex(KEY_UID);
         int indexMssv = cursor.getColumnIndex(KEY_MSSV);
         int indexType = cursor.getColumnIndex(KEY_TYPE);
+        int indexAva = cursor.getColumnIndex(KEY_AVATAR);
 
         // Move to first row
         cursor.moveToFirst();
@@ -163,6 +167,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             user.put("lop", cursor.getString(indexLop));
             user.put("mssv", cursor.getString(indexMssv));
             user.put("type", cursor.getString(indexType));
+            user.put("ava", cursor.getString(indexAva));
         }
         cursor.close();
         db.close();
