@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.models.ItemLop;
 
 import java.util.ArrayList;
 import java.util.Random;

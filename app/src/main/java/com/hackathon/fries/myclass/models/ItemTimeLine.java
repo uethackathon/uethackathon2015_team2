@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by TooNies1810 on 11/20/15.
  */
 public class ItemTimeLine {
+    private String title;
     private String name;
     private String ava;
     private String content;
@@ -13,8 +14,9 @@ public class ItemTimeLine {
     private boolean isConfirmByTeacher;
     private ArrayList<ItemComment> itemComments = new ArrayList<>();
 
-    public ItemTimeLine(String name, String ava, String content, int like, boolean isConfirmByTeacher) {
+    public ItemTimeLine(String title, String name, String ava, String content, int like, boolean isConfirmByTeacher) {
         this.name = name;
+        this.title = title;
         this.ava = ava;
         this.content = content;
         this.like = like;
@@ -59,5 +61,9 @@ public class ItemTimeLine {
 
     public void setItemComments(ArrayList<ItemComment> itemComments) {
         this.itemComments = itemComments;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

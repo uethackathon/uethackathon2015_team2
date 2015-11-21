@@ -1,4 +1,4 @@
-package com.hackathon.fries.myclass.adapter;
+package com.hackathon.fries.myclass.models;
 
 /**
  * Created by TooNies1810 on 11/20/15.

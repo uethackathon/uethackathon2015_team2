@@ -1,4 +1,4 @@
-package com.hackathon.fries.myclass.adapter;
+package com.hackathon.fries.myclass.models;
 
 /**
  * Created by TMQ on 21-Nov-15.

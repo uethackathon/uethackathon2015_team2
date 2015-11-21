@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:id="@+id/dialogTenMH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Ten mon hoc"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_lop_mon_hoc" />
+
+        <TextView
+            android:id="@+id/dialogMaMH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ma lmh"
+            />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_giang_vien" />
+
+        <TextView
+            android:id="@+id/dialogGiangVien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giang vien"
+            />
+
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_dia_diem" />
+
+        <TextView
+            android:id="@+id/dialogDiaDiem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dia diem"
+            />
+
+    </TableRow>
+
+
+
+
+</LinearLayout>

@@ -32,7 +32,7 @@ public class ItemPostHolder extends AbstactHolder {
     private TextView txtCommentLastPost;
     private TextView txtCountLike;
     private TextView txtCountComment;
-
+    @Override
     public int getViewHolderType() {
         int viewHolderType = 1;
         return viewHolderType;

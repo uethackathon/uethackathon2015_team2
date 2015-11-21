@@ -13,13 +13,13 @@ import com.hackathon.fries.myclass.R;
  */
 public class ItemWritePostHolder extends AbstactHolder {
     private ImageView imgAvatar;
-    private EditText txtEdit;
+    private TextView txtView;
     public ItemWritePostHolder(View itemView) {
         super(itemView);
         imgAvatar = (ImageView) itemView.findViewById(R.id.avatar);
-        txtEdit = (EditText) itemView.findViewById(R.id.textBox);
+        txtView = (EditText) itemView.findViewById(R.id.textView2);
     }
-
+    @Override
     public int getViewHolderType() {
         int viewHolderType = 0;
         return viewHolderType;
@@ -33,11 +33,11 @@ public class ItemWritePostHolder extends AbstactHolder {
         this.imgAvatar = imgAvatar;
     }
 
-    public EditText getTxtEdit() {
-        return txtEdit;
+    public TextView getTxtEdit() {
+        return txtView;
     }
 
-    public void setTxtEdit(EditText txtEdit) {
-        this.txtEdit = txtEdit;
+    public void setTxtEdit(TextView txtView) {
+        this.txtView = txtView;
     }
 }

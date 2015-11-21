@@ -30,32 +30,38 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T2"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T3"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T4"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T5"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T6"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="T7"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"/>
     </LinearLayout>
 
     <ScrollView

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.hackathon.fries.myclass.MainActivity;
 import com.hackathon.fries.myclass.R;
-import com.hackathon.fries.myclass.adapter.ItemLop;
+import com.hackathon.fries.myclass.models.ItemLop;
 import com.hackathon.fries.myclass.adapter.LopAdapter;
 
 import java.util.ArrayList;

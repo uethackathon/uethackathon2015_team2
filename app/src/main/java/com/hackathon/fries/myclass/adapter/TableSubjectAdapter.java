@@ -1,17 +1,18 @@
 package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.models.ItemLopMonHoc;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by TMQ on 20-Nov-15.
@@ -88,6 +89,7 @@ public class TableSubjectAdapter extends BaseAdapter{
 
     @Override
     public ItemLopMonHoc getItem(int position) {
+        if (listSubjectInTable[position]==-1) return null;
         return listSubject.get(listSubjectInTable[position]);
     }
 
@@ -101,6 +103,9 @@ public class TableSubjectAdapter extends BaseAdapter{
         if (view == null){
             view = lf.inflate(R.layout.item_subject_in_table, null);
         }
+
+        Animation myAni = AnimationUtils.loadAnimation(mContext, R.anim.anim_show_item_subject);
+        view.startAnimation(myAni);
 
         if (listSubjectInTable[position] == -1) return view;
 
