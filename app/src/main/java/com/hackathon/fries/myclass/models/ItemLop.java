@@ -11,7 +11,7 @@ public class ItemLop {
     //thong tin ve ma mon hoc
     public String id;
 
-    //id duoc luu tren database (nhan dien cac lop mon hoc khac nhau)
+    //id duoc luu tren database ()
     public String idData;
 
     public String vietTat;

@@ -3,6 +3,7 @@ package com.hackathon.fries.myclass.appmanager;
 import android.content.Context;
 
 import com.hackathon.fries.myclass.models.ItemLop;
+import com.hackathon.fries.myclass.models.ItemTimeLine;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class AppManager {
     private static AppManager _sharePointer = null;
     private ArrayList<ItemLop> arrItemLopKhoaHoc;
     private ArrayList<ItemLop> arrItemLopMonHoc;
+    private ArrayList<ItemTimeLine> arrItemTimeLine;
 
     private int currentAdapter;
 
@@ -66,5 +68,13 @@ public class AppManager {
 
     public void setCurrentAdapter(int currentAdapter) {
         this.currentAdapter = currentAdapter;
+    }
+
+    public ArrayList<ItemTimeLine> getArrItemTimeLine() {
+        return arrItemTimeLine;
+    }
+
+    public void setArrItemTimeLine(ArrayList<ItemTimeLine> arrItemTimeLine) {
+        this.arrItemTimeLine = arrItemTimeLine;
     }
 }

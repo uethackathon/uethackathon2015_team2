@@ -18,7 +18,8 @@
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        android:id="@+id/LinearLayoutParent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -31,7 +32,6 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:shadowColor="#000000"
-                android:textAllCaps="true"
                 android:text="@string/title_post"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000"
@@ -133,6 +133,7 @@
                 android:textColor="#c0bdbd"
                 android:textSize="13dp" />
         </LinearLayout>
+
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

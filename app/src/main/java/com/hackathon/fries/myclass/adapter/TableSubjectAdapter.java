@@ -2,6 +2,10 @@ package com.hackathon.fries.myclass.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +14,30 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.app.AppConfig;
+import com.hackathon.fries.myclass.app.AppController;
+import com.hackathon.fries.myclass.fragment.TimelineFragment;
+import com.hackathon.fries.myclass.helper.SQLiteHandler;
+import com.hackathon.fries.myclass.models.ItemComment;
 import com.hackathon.fries.myclass.models.ItemLopMonHoc;
+import com.hackathon.fries.myclass.models.ItemTimeLine;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by TMQ on 20-Nov-15.
@@ -41,16 +64,19 @@ public class TableSubjectAdapter extends BaseAdapter{
     };
 
 
-
     private int [] listSubjectInTable;
-    private ArrayList<ItemLopMonHoc> listSubject;
+    private ArrayList<ItemLopMonHoc> listSubject = new ArrayList<>();
     private Context mContext;
     private LayoutInflater lf;
 
     public TableSubjectAdapter(Context context){
         mContext = context;
         lf = LayoutInflater.from(mContext);
-        getSubjectData();
+    }
+
+    public void setListSubject(ArrayList<ItemLopMonHoc> list){
+        listSubject = list;
+        convertSubjectToTable();
     }
 
     private void getSubjectData(){
@@ -74,7 +100,7 @@ public class TableSubjectAdapter extends BaseAdapter{
             int soTiet = item.getSoTiet();
 
             for (int j=0; j<soTiet; j++){
-                int x = (viTri+j) / 10;
+                int x = (viTri+j - 1) / 10;
                 int y = (viTri+j - 1) % 10;
                 if (y>=5) y++;
 
@@ -127,4 +153,10 @@ public class TableSubjectAdapter extends BaseAdapter{
 
         return view;
     }
+
+    //---------------------------------------------------------------------------------------
+
+
+
+
 }

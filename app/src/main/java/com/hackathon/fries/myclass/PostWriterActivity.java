@@ -60,7 +60,7 @@ public class PostWriterActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        edtTitlePost = (EditText) findViewById(R.id.edt_titlepost);
+        edtTitlePost = (EditText) findViewById(R.id.edt_titlePost);
         edtContentPost = (EditText) findViewById(R.id.edt_contentPost);
         ivPost = (ImageView) findViewById(R.id.iv_post);
 
@@ -103,11 +103,6 @@ public class PostWriterActivity extends AppCompatActivity {
 
     private void postPost(final String uid, final String group, final String base, final String title, final String content) {
         showDialog();
-        Log.i(TAG, uid);
-        Log.i(TAG, group);
-        Log.i(TAG, base);
-        Log.i(TAG, title);
-        Log.i(TAG, content);
 
         StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_POST_POST,
                 new Response.Listener<String>() {
@@ -122,32 +117,6 @@ public class PostWriterActivity extends AppCompatActivity {
                             if (!error) {
                                 // cap nhat giao dien
                                 // thong bao dang bai thanh cong
-//                                JSONObject jsonPost = jsonObject.getJSONObject("post");
-//                                String idPost = jsonPost.getString("id");
-//                                String titlePost = jsonPost.getString("title");
-//                                String contentPost = jsonPost.getString("content");
-//                                String groupPost = jsonPost.getString("group");
-//                                int likePost = jsonPost.getInt("like");
-//                                boolean isIncognitoPost = jsonPost.getBoolean("isIncognito");
-//                                String typePost = jsonPost.getString("type");
-//                                String basePost = jsonPost.getString("base");
-//
-//                                //Lay thong tin nguoi dang bai (author)
-//                                JSONObject jsonAuthor = jsonObject.getJSONObject("author");
-//                                String nameAuthor = jsonAuthor.getString("name");
-//                                String idAuthor = jsonAuthor.getString("id");
-//                                String emailAuthor = jsonAuthor.getString("email");
-//                                String typeAuthor = jsonAuthor.getString("type");
-//                                String mssvAuthor = jsonAuthor.getString("mssv");
-//
-//                                //chua xay dung chuc nang ava
-//                                String avaAuthor = "";
-//
-//                                //Khoi tao mang comment rong
-//                                ArrayList<ItemComment> itemCommentArr = new ArrayList<>();
-//                                ItemTimeLine itemTimeLine = new ItemTimeLine(titlePost, nameAuthor, avaAuthor,
-//                                        contentPost, likePost, false);
-//                                itemTimeLine.setItemComments(itemCommentArr);
 
                                 Message msg = new Message();
                                 msg.setTarget(mHandler);

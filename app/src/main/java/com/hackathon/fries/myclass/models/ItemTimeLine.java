@@ -7,11 +7,12 @@ import java.util.ArrayList;
 /**
  * Created by TooNies1810 on 11/20/15.
  */
-public class ItemTimeLine {
+public class ItemTimeLine extends ItemBase{
     private static final String TAG = "ItemTimeLine";
     private String title;
 
     //name of author post
+    private String idPost;
     private String name;
     private String ava;
     private String content;
@@ -19,8 +20,9 @@ public class ItemTimeLine {
     private boolean isConfirmByTeacher;
     private ArrayList<ItemComment> itemComments = new ArrayList<>();
 
-    public ItemTimeLine(String title, String name, String ava, String content, int like, boolean isConfirmByTeacher) {
+    public ItemTimeLine(String idPost, String title, String name, String ava, String content, int like, boolean isConfirmByTeacher) {
         this.name = name;
+        this.idPost = idPost;
         this.title = title;
         this.ava = ava;
         this.content = content;
@@ -77,5 +79,13 @@ public class ItemTimeLine {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 }

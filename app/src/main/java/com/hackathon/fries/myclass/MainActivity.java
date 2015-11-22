@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initAllFragments() {
         getFragmentManager().beginTransaction().
-                add(R.id.container, lopFragment).commit();
+                add(R.id.container, lopFragment).show(lopFragment).commit();
     }
 
     private void hideAllFragment() {
@@ -314,4 +314,6 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "check db lop: " + lop);
         Log.i(TAG, "check db type: " + type);
     }
+
+
 }

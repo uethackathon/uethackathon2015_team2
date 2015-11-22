@@ -17,6 +17,7 @@ import com.hackathon.fries.myclass.R;
 import com.hackathon.fries.myclass.holder.AbstactHolder;
 import com.hackathon.fries.myclass.holder.ItemPostHolder;
 import com.hackathon.fries.myclass.holder.ItemWritePostHolder;
+import com.hackathon.fries.myclass.models.ItemBase;
 import com.hackathon.fries.myclass.models.ItemTimeLine;
 
 import java.io.IOException;
@@ -31,15 +32,15 @@ import java.util.ArrayList;
 public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
     private static final String TAG = "TimelineAdapter";
     private Context mContext;
-    private ArrayList<ItemTimeLine> itemArr = new ArrayList<ItemTimeLine>();
+    private ArrayList<ItemBase> itemArr = new ArrayList<ItemBase>();
 
-    public TimeLineAdapter(ArrayList<ItemTimeLine> posts, Context ctx){
+    public TimeLineAdapter(ArrayList<ItemBase> posts, Context ctx){
         this.itemArr = posts;
         this.mContext = ctx;
         itemArr = posts;
     }
 
-    public void updateList(ArrayList<ItemTimeLine> posts) {
+    public void updateList(ArrayList<ItemBase> posts) {
         this.itemArr = posts;
         notifyDataSetChanged();
     }
@@ -72,8 +73,9 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
 
             //itemPostHolder.getImgAvatar();
             ItemPostHolder itemPostHolder = (ItemPostHolder) abstactHolder;
-            final ItemTimeLine itemTimeLine = itemArr.get(position - 1);
+            final ItemTimeLine itemTimeLine = (ItemTimeLine)itemArr.get(position);
             itemPostHolder.setListComment(itemTimeLine.getItemComments());
+            itemPostHolder.getTxtAuthor().setText(itemTimeLine.getName());
             try {
                 ImageView i = itemPostHolder.getImgAvatar();
                 Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(itemTimeLine.getAva()).getContent());
@@ -84,17 +86,12 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
                 e.printStackTrace();
             }
             Log.i(TAG, "title" + itemTimeLine.getTitle());
-            itemPostHolder.getTxtTitle().setText(itemTimeLine.getTitle());
+            itemPostHolder.getTxtTitle().setText("[" + itemTimeLine.getTitle() + "]");
             itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());
             itemPostHolder.getTxtCountLike().setText(itemTimeLine.getLike() + " cám ơn");//
             itemPostHolder.getTxtCountComment().setText(itemTimeLine.getItemComments().size() + " bình luận");//
 
-            if(itemTimeLine.getItemComments().size() > 0){
-                itemPostHolder.getTxtNameLastPost().setText(
-                        itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getName());
-                itemPostHolder.getTxtCommentLastPost().setText(
-                        itemTimeLine.getItemComments().get(itemTimeLine.getItemComments().size() - 1).getContent());
-            }
+
 
         } else {
             Log.i(TAG,"by xong");

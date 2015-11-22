@@ -42,6 +42,10 @@ public class CommentAdapter extends BaseAdapter {
 //        getDataComments();
     }
 
+    public void addComment(ItemComment cmt){
+        listComments.add(cmt);
+    }
+
     private void getDataComments(){
         listComments = new ArrayList<>();
 

@@ -23,7 +23,7 @@
             android:hint="Bình luận ...">
         </EditText>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnSendComment"
             android:layout_width="40dp"
             android:layout_height="40dp"
