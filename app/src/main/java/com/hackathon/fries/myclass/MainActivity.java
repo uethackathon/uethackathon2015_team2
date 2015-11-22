@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_sendAll:
-                Toast.makeText(this, "Send to all", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Send to all", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity
         timelineFragment.setArguments(b);
 //        timelineFragment.setIdLop(idData, lopType);
 
-        Toast.makeText(getApplicationContext(), "Id: " + idData, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Id: " + idData, Toast.LENGTH_LONG).show();
 
         getFragmentManager().beginTransaction().
                 replace(R.id.container, timelineFragment).addToBackStack(null).commit();

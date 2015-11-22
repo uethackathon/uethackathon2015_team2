@@ -76,15 +76,15 @@ public class TimeLineAdapter extends RecyclerView.Adapter<AbstactHolder> {
             final ItemTimeLine itemTimeLine = (ItemTimeLine)itemArr.get(position);
             itemPostHolder.setListComment(itemTimeLine.getItemComments());
             itemPostHolder.getTxtAuthor().setText(itemTimeLine.getName());
-            try {
-                ImageView i = itemPostHolder.getImgAvatar();
-                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(itemTimeLine.getAva()).getContent());
-                i.setImageBitmap(bitmap);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                ImageView i = itemPostHolder.getImgAvatar();
+//                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(itemTimeLine.getAva()).getContent());
+//                i.setImageBitmap(bitmap);
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             Log.i(TAG, "title" + itemTimeLine.getTitle());
             itemPostHolder.getTxtTitle().setText("[" + itemTimeLine.getTitle() + "]");
             itemPostHolder.getTxtContent().setText(itemTimeLine.getContent());

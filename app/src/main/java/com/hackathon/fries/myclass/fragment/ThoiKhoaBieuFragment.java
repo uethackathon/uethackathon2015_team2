@@ -80,7 +80,7 @@ public class ThoiKhoaBieuFragment extends Fragment implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ItemLopMonHoc item = adapter.getItem(position);
         if (item==null) {
-            Toast.makeText(mContext, "Trống", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "Trống", Toast.LENGTH_SHORT).show();
             return;
         }
         showDialogInfo(item);

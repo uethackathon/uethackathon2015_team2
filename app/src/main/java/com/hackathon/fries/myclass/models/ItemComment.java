@@ -11,12 +11,16 @@ public class ItemComment {
     private String avaUrl;
     private String content;
     private boolean isVote;
+    private String idComment;
+    private String idAuthorComment;
 
-    public ItemComment(String name, String avaUrl, String content, boolean isVote) {
+    public ItemComment(String idComment, String idAuthorComment, String name, String avaUrl, String content, boolean isVote) {
         this.name = name;
         this.avaUrl = avaUrl;
         this.content = content;
         this.isVote = isVote;
+        this.idComment = idComment;
+        this.idAuthorComment = idAuthorComment;
     }
 
     public String getName() {
@@ -33,5 +37,13 @@ public class ItemComment {
 
     public boolean isVote() {
         return isVote;
+    }
+
+    public String getIdComment() {
+        return idComment;
+    }
+
+    public String getIdAuthorComment() {
+        return idAuthorComment;
     }
 }

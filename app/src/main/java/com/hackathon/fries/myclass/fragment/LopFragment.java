@@ -96,7 +96,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
                 showNhomAdt();
                 break;
             case 0:
-                Toast.makeText(mContext, "init adapter", Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext, "init adapter", Toast.LENGTH_LONG).show();
                 initLopKhoaHoc();
                 initLopMonHoc();
                 initNhom();
@@ -223,7 +223,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 
                             itemArr.add(new ItemLop(nameLop, id, idLop, nameGiangVien, soSV));
                         }
-                        Toast.makeText(mContext, "lay lop hoc thành công!", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mContext, "Lấy dữ liệu môn học thành công!", Toast.LENGTH_LONG).show();
 
                     } else {
 
@@ -241,7 +241,7 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Get class Error: " + error.getMessage());
+//                Log.e(TAG, "Get class Error: " + error.getMessage());
                 Toast.makeText(mContext,
                         error.getMessage(), Toast.LENGTH_LONG).show();
 //                hideDialog();
@@ -279,8 +279,8 @@ public class LopFragment extends Fragment implements AdapterView.OnItemClickList
         ArrayList<ItemLop> itemLopArr = new ArrayList<>();
         requestLopHoc(uid, currentDBKey, itemLopArr);
 
-        Toast.makeText(mContext, "currentDBKey: " + currentDBKey +
-                " currentadapter: " + currentAdapter, Toast.LENGTH_LONG).show();
+//        Toast.makeText(mContext, "currentDBKey: " + currentDBKey +
+//                " currentadapter: " + currentAdapter, Toast.LENGTH_LONG).show();
 
         switch (currentAdapter) {
             case LOP_MON_HOC:

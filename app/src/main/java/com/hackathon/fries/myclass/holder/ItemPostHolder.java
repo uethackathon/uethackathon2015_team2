@@ -1,6 +1,10 @@
 package com.hackathon.fries.myclass.holder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -8,24 +12,40 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.hackathon.fries.myclass.R;
+import com.hackathon.fries.myclass.app.AppConfig;
+import com.hackathon.fries.myclass.app.AppController;
 import com.hackathon.fries.myclass.appmanager.AppManager;
 import com.hackathon.fries.myclass.dialog.PopupComments;
+import com.hackathon.fries.myclass.fragment.LopFragment;
+import com.hackathon.fries.myclass.helper.SQLiteHandler;
 import com.hackathon.fries.myclass.models.ItemComment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Tdh4vn on 11/21/2015.
  */
 public class ItemPostHolder extends AbstactHolder implements PopupComments.OnDismissListener{
+    private static final String TAG = "ItemPostHolder";
     private ArrayList<ItemComment> listComment = new ArrayList<>();
     private Context mContext;
+    private ProgressDialog pDialog;
 
     public ItemPostHolder(View itemView) {
         super(itemView);
         mContext = itemView.getContext();
 
+        pDialog = new ProgressDialog(mContext);
         imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
         txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
         txtContent = (TextView) itemView.findViewById(R.id.tv_content);
@@ -52,7 +72,18 @@ public class ItemPostHolder extends AbstactHolder implements PopupComments.OnDis
         btnTks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //cap nhat like toi server
 
+                //get user
+                SQLiteHandler db = new SQLiteHandler(mContext);
+                HashMap<String, String> user = db.getUserDetails();
+                final String uid = user.get("uid");
+                String type = user.get("type");
+
+                String idPost = AppManager.getInstance().getArrItemTimeLine()
+                        .get(LopFragment.positionItemClick).getIdPost();
+
+                postLike(uid, idPost);
             }
         });
         btnComment.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +106,63 @@ public class ItemPostHolder extends AbstactHolder implements PopupComments.OnDis
 //        });
     }
 
+    private void postLike(final String uid, final String idPost) {
+        showDialog();
+        Log.i(TAG, uid);
+        Log.i(TAG, idPost);
+
+        StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_POST_LIKE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        hideDialog();
+
+                        Log.i(TAG, response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            boolean error = jsonObject.getBoolean("error");
+                            if (!error) {
+                                // cap nhat giao dien
+                                // thong bao dang bai thanh cong
+//                                JSONObject jsonComment = jsonObject.getJSONObject("comment");
+//                                String idCmt = jsonComment.getString("id");
+
+//                                Bundle b = new Bundle();
+//                                b.putString("idCmt", idCmt);
+//                                b.putString("content", content);
+
+                                Message msg = new Message();
+//                                msg.setData(b);
+                                msg.setTarget(mHandler);
+                                msg.sendToTarget();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hideDialog();
+                Log.i(TAG, "Vote error: " + error.getMessage());
+                Toast.makeText(mContext, error.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> data = new HashMap<>();
+                data.put("user", uid);
+                data.put("id", idPost);
+
+                return data;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(request, "post");
+    }
+
     private void showPopupComments(View view) {
         PopupComments pop = new PopupComments(AppManager.getInstance().getMainContext(), listComment);
         pop.showPopupComments(view);
@@ -85,6 +173,7 @@ public class ItemPostHolder extends AbstactHolder implements PopupComments.OnDis
     private TextView txtTitle;
     private TextView txtContent;
     private TextView txtAuthor;
+//    private Button btnLike;
     //    private ImageView imgAvatarLastPost;
 //    private TextView txtNameLastPost;
 //    private TextView txtCommentLastPost;
@@ -208,5 +297,24 @@ public class ItemPostHolder extends AbstactHolder implements PopupComments.OnDis
 
     public void setTxtAuthor(TextView txtAuthor) {
         this.txtAuthor = txtAuthor;
+    }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+    private void showDialog() {
+        if (!pDialog.isShowing()) {
+            pDialog.show();
+        }
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing()) {
+            pDialog.hide();
+        }
     }
 }

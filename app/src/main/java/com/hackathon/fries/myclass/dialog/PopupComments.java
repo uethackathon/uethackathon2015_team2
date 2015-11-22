@@ -3,6 +3,7 @@ package com.hackathon.fries.myclass.dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class PopupComments {
 
     private EditText edtContentCmt;
     private ImageView btnSend;
+    private ListView listView;
 
     // Dem so lan gui binh luan
     private int countNumberSend = 0;
@@ -72,7 +74,7 @@ public class PopupComments {
         rootView = layoutInflater.inflate(R.layout.popup_comment, null, false);
         rootView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.anim_slide_in_bottom));
 
-        final ListView listView = (ListView) rootView.findViewById(R.id.listCommentPopup);
+        listView = (ListView) rootView.findViewById(R.id.listCommentPopup);
         listView.setAdapter(adapter);
 
         edtContentCmt = (EditText) rootView.findViewById(R.id.edtComment);
@@ -98,6 +100,9 @@ public class PopupComments {
                 String currentDBKey = "";
 
                 ArrayList<ItemTimeLine> itemTimeLine = AppManager.getInstance().getArrItemTimeLine();
+                if (itemTimeLine.size() == 0){
+                    Log.i(TAG, "itemTimeLine null");
+                }
                 switch (currentAdapter) {
                     case LopFragment.LOP_MON_HOC:
                         currentDBKey = LopFragment.KEY_LOP_MON_HOC;
@@ -114,11 +119,6 @@ public class PopupComments {
 
                 postCmt(currentDBKey, itemTimeLine.get(LopFragment.positionItemClick).getIdPost(), uid, content);
 
-                // Thay doi tren Local
-                countNumberSend ++; // Tang so lan gui binh luan len
-                adapter.addComment(new ItemComment(name, "", content, false));
-                listView.setAdapter(adapter);
-                edtContentCmt.setText("");
             }
         });
 
@@ -176,8 +176,15 @@ public class PopupComments {
                             if (!error) {
                                 // cap nhat giao dien
                                 // thong bao dang bai thanh cong
+                                JSONObject jsonComment = jsonObject.getJSONObject("comment");
+                                String idCmt = jsonComment.getString("id");
+
+                                Bundle b = new Bundle();
+                                b.putString("idCmt", idCmt);
+                                b.putString("content", content);
 
                                 Message msg = new Message();
+                                msg.setData(b);
                                 msg.setTarget(mHandler);
                                 msg.sendToTarget();
                             }
@@ -213,6 +220,21 @@ public class PopupComments {
         @Override
         public void handleMessage(Message msg) {
             Toast.makeText(mContext, "Gửi bình luận thành công", Toast.LENGTH_LONG).show();
+
+            Bundle b = msg.getData();
+            String idCmt = b.getString("idCmt");
+            String content = b.getString("content");
+
+            SQLiteHandler db = new SQLiteHandler(mContext);
+            HashMap<String, String> user = db.getUserDetails();
+            String uid = user.get("uid");
+            String name = user.get("name");
+
+            // Thay doi tren Local
+            countNumberSend++; // Tang so lan gui binh luan len
+            adapter.addComment(new ItemComment(idCmt, uid, name, "", content, false));
+            adapter.notifyDataSetChanged();
+            edtContentCmt.setText("");
         }
     };
 
